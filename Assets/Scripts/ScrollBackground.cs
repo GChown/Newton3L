@@ -12,9 +12,13 @@ public class ScrollBackground : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if(_target != null){
         Vector2 targetPos = _target.transform.position;
         Vector2 offset = Camera.main.ScreenToWorldPoint(targetPos).normalized;
         GetComponent<Renderer>().material.mainTextureOffset = offset;
         transform.position = new Vector3(targetPos.x, targetPos.y, transform.position.z);
+        }else{
+            return;
+        }
     }
 }

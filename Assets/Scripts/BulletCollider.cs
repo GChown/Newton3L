@@ -15,16 +15,9 @@ public class BulletCollider : MonoBehaviour {
 	}
 
     void OnCollisionEnter2D(Collision2D coll) {
-        if(coll.gameObject.tag == "enemy"){
+		if((coll.gameObject.tag == "enemy") || (coll.gameObject.tag == "player") || (coll.gameObject.tag == "bullet") || coll.gameObject.tag == "metior") {
 			Instantiate (_explosionPrefab,_bulletPrefab.transform.position,transform.rotation);
 			Destroy(gameObject);
-
         }
-		if(coll.gameObject.tag == "metior"){
-			Instantiate (_explosionPrefab,_bulletPrefab.transform.position,transform.rotation);
-			Destroy(gameObject);
-		}
     }
-
-
 }

@@ -33,7 +33,7 @@ public class EnemyLookAt : MonoBehaviour {
                 Rigidbody2D body = bullet.GetComponent<Rigidbody2D>();
                 var force = ship_pos.normalized * 200;
                 body.AddForce(force);
-                Rigidbody2D shipRigid = GetComponent<Rigidbody2D>();
+                //Rigidbody2D shipRigid = GetComponent<Rigidbody2D>();
 				//shipRigid.AddForce(-(ship_pos.normalized * 70));
                 timeToShoot = 100f;
             }else{
