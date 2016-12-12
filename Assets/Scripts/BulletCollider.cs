@@ -11,12 +11,13 @@ public class BulletCollider : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Destroy (gameObject, 5);
+		Destroy (gameObject, 5f);
 	}
 
     void OnCollisionEnter2D(Collision2D coll) {
 		if((coll.gameObject.tag == "enemy") || (coll.gameObject.tag == "player") || (coll.gameObject.tag == "bullet") || coll.gameObject.tag == "metior") {
-			Instantiate (_explosionPrefab,_bulletPrefab.transform.position,transform.rotation);
+			var explosion = Instantiate (_explosionPrefab,_bulletPrefab.transform.position,transform.rotation);
+            //Destroy(explosion, 5f);
 			Destroy(gameObject);
         }
     }

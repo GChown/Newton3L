@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
     public GameObject _pauseDisplay;
-    bool paused;
+    public static bool paused;
     // Use this for initialization
     void Start () {
         _pauseDisplay.SetActive(false); 
@@ -22,6 +22,12 @@ public class GameManager : MonoBehaviour {
                 _pauseDisplay.SetActive(false); 
                 paused = false;
                 Time.timeScale = 1f;
+            }
+        }else if(!paused){
+            if(Input.GetKey(KeyCode.Space)){
+                Time.timeScale = 1f;
+            }else{
+                Time.timeScale = 0.1f;
             }
         }
     }

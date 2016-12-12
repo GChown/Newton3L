@@ -12,7 +12,6 @@ public class ShipController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         timeToShoot = 0f;
-        //_status.SetActive(false);
         _status.gameObject.SetActive(false);
         health = 100f;
         Time.timeScale = 1.0f;
@@ -20,6 +19,7 @@ public class ShipController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if(!GameManager.paused){
         
 		timeToShoot -= 1f;
        
@@ -46,7 +46,7 @@ public class ShipController : MonoBehaviour {
 		Debug.DrawRay(transform.position, ShipRotation, Color.green);
         
 		if(Input.GetKey(KeyCode.Space)){
-            if(timeToShoot <= 0f){
+            if(Time.time >= timeToShoot){
                 //Shoot a bullet
                 var bullet = (GameObject) Instantiate(_bulletPrefab, _bulletEmitter.transform.position, transform.rotation);
                 Rigidbody2D body = bullet.GetComponent<Rigidbody2D>();
@@ -55,16 +55,17 @@ public class ShipController : MonoBehaviour {
 				//speed = -(mouse_pos.normalized * 50)
                 Rigidbody2D shipRigid = GetComponent<Rigidbody2D>();
 				shipRigid.AddForce(-(mouse_pos.normalized * 70));
-                timeToShoot = 50f;
+                timeToShoot = Time.time + (50f * Time.timeScale);
             }else{
                 //Misfire animation?
             }
         }
         if(health <= 0){
             _status.SetActive(true);
-            Time.timeScale = 0.5f;
+            Time.timeScale = 0.3f;
 			Instantiate (_explosionPrefab,transform.position,transform.rotation);
             Destroy(this.gameObject);
+        }
         }
     }
     void OnCollisionEnter2D(Collision2D coll) {
@@ -75,7 +76,7 @@ public class ShipController : MonoBehaviour {
     }
     void OnGUI(){
         //position, float value, float size, float leftValue, float rightValue
+        //Position just below player ship
         GUI.HorizontalScrollbar(new Rect(Screen.width / 2 - 32, Screen.height / 2 + 60, 75, 20), 0, health, 0, 100);
-        //GUI.HorizontalScrollbar(new Rect(10, 40, 200, 40), 0, 100, 0, 100);
     }
 }

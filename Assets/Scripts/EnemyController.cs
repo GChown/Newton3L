@@ -12,6 +12,8 @@ public class EnemyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(!GameManager.paused){
+
         Vector3 ship_pos = Camera.main.WorldToScreenPoint(_target.transform.position);
         ship_pos.z = 5.23f;
         //The distance between the camera and object
@@ -25,5 +27,6 @@ public class EnemyController : MonoBehaviour {
         Quaternion shipRotation = Quaternion.Euler (ShipRotation);
         transform.rotation = shipRotation;
         GetComponent<Rigidbody2D>().AddForce(ShipRotation * 100);
+        }
 	}
 }
